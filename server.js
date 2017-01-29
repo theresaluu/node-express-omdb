@@ -4,13 +4,19 @@ var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
 
-//global middleware- every request runs through these prior to
-//execution
+//global middleware- each req runs through these prior to execution
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use('/', express.static(path.join(__dirname, 'public')));
 
+//sets up ejs in place of Jade
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.get('/', function(req, res){
+  res.render('index', {title: 'Movie Search', field: 'Movie Title Search'});
+})
 app.get('/favorites', function(req, res){
   var data = fs.readFileSync('./data.json');
   res.setHeader('Content-Type', 'application/json');
