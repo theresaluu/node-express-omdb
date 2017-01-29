@@ -3,12 +3,12 @@ var app = express();
 var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
-var omdb = require('omdb');
 
+//global middleware- every request runs through these prior to
+//execution
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
-
 app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.get('/favorites', function(req, res){
@@ -30,18 +30,9 @@ app.get('/favorites', function(req, res){
   res.send(data);
 });
 
-omdb.search('saw', function(err, movies) {
-  if(err) {
-    return console.error(err);
-  }
-
-  if(movies.length < 1) {
-    return console.log('No movies were found!');
-  }
-
-  movies.forEach(function(movie) {
-    console.log('%s (%d)', movie.title, movie.year);
-  });
+app.post('/', function(req, res) {
+  var search = req.body;
+  res.json(search);
 });
 
 app.listen(3000, function(){
