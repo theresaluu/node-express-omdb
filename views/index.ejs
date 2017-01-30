@@ -2,15 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title><%=title%></title>
-    <script type="text/javascript" src='/js/app.js' async></script>
+    <title>Movie Search</title>
+    <link rel="stylesheet" type="text/css" href="/css/app.css"/>
+    <script src="https://use.fontawesome.com/fb17c354b7.js"></script>
   </head>
   <body>
-    <form id="omdb-form">
-      <%=field%> <br>
-      <input type="text" name="t" id="omdb-search"><br>
-    </form>
+    <div>
+      <form id="omdb-form">
+        <h2>Movie Title Search</h2>
+        <p><input type="text" name="s" id="omdb-search"><p> <br>
+      </form>
+    </div>
+    <div id="results-section">
+      <ul class='movie-list'></ul>
+    </div>
+    <script type="text/javascript" src='/js/lodash.js'></script>
+    <script type="text/javascript" src='/js/app.js'></script>
   </body>
 </html>
-<!--
--->

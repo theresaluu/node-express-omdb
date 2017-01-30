@@ -15,8 +15,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
-  res.render('index', {title: 'Movie Search', field: 'Movie Title Search'});
+  res.render('index', {
+    title: 'Movie Search',
+    heading: 'Movie Title Search',
+  });
 })
+
 app.get('/favorites', function(req, res){
   var data = fs.readFileSync('./data.json');
   res.setHeader('Content-Type', 'application/json');
@@ -37,8 +41,11 @@ app.get('/favorites', function(req, res){
 });
 
 app.post('/', function(req, res) {
-  var search = req.body;
-  res.json(search);
+  //var search = req.body;
+  //res.json(search);
+  var movies = req.body;
+  res.json(movies);
+  alert(res.json(movies));
 });
 
 app.listen(3000, function(){
