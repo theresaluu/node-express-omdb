@@ -79,10 +79,12 @@ window.onload = function() {
             }
             if(event.target.tagName.toLowerCase() === 'i') {
               if(star.className === "fa fa-star-o") {
+                console.log(star.nextElementSibling.id);
                 star.className = "fa fa-star";
               } else {
                 star.className = "fa fa-star-o";
-              }
+              };
+
             }
           });
 }
