@@ -5,18 +5,33 @@ window.onload = function() {
   var omdbForm = document.getElementById('omdb-form');
   var omdb = 'http://www.omdbapi.com/?s=';
   var movies = [];
+  var favs = [];
 
   var indivMovieResult = function(movie){
     return '<a href="#" class="movie-link">' + movie.Title
-      + '</a> <i class="fa fa-star-o" aria-hidden="true"></i> <p class= "hidden-details" id='
-      + movie.imdbID + '> <img src=' + movie.Poster + ' alt=' +
-      movie.Title.split(' ').join('_') + '> <br> Name: ' + movie.Title +
+      + '</a> <i class="fa fa-star-o" aria-hidden="true" id=' + movie.imdbID +
+      '></i> <p class= "hidden-details"> <img src=' + movie.Poster + ' alt=' +
+      movie.Title.split(' ').join('_') + '><br> Name: ' + movie.Title +
       '<br> Type: ' + movie.Type + '<br> Year: ' + movie.Year + '</p>';
   }
 
   var getDetails = function(movie) {
-    return {}
-  }
+    var title = movie.Title;
+    var type = movie.Type;
+    var year = movie.Year;
+    var imdbID = movie.imdbID;
+    var poster = movie.Poster;
+    var starred = true;          //default value- change upon click
+
+    return {
+      title: title,
+      type: type,
+      year: year,
+      imdbID: imdbID,
+      poster: poster,
+      starred: starred
+    };
+  };
 
   var showMeTheMovies = function(data){
     var li = document.createElement('li');
@@ -28,6 +43,7 @@ window.onload = function() {
 
   var makeMovieList = function() {
     document.querySelector('.movie-list').innerHTML= "";
+
     movies.forEach(function(movie) {
       showMeTheMovies(movie);
     });
@@ -68,23 +84,30 @@ window.onload = function() {
             var star = event.target;
 
             if(event.target.tagName.toLowerCase() === 'a') {
-              console.log('clicked a href');
-              console.log(movieDetails.className=== 'hidden-details');
               if(movieDetails.className === "hidden-details") {
                 movieDetails.className = "";
               } else {
-                console.log('should be changing');
                 movieDetails.className = "hidden-details";
               }
             }
             if(event.target.tagName.toLowerCase() === 'i') {
               if(star.className === "fa fa-star-o") {
-                console.log(star.nextElementSibling.id);
                 star.className = "fa fa-star";
+                movies.forEach(function(movie) {
+                  if(movie.imdbID === star.id) {
+                    favs.push(movie);
+                  }
+                });
               } else {
                 star.className = "fa fa-star-o";
+                movies.forEach(function(movie) {
+                  var index = movies.indexOf(movie);
+                  if(movie.imdbID === star.id) {
+                    favs.splice(index, 1);
+                  }
+                });
               };
-
-            }
+              console.log(favs);
+            };
           });
 }

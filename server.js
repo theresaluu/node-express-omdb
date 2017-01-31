@@ -3,6 +3,7 @@ var app = express();
 var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
+var _ = require('lodash');
 
 //global middleware- each req runs through these prior to execution
 app.use(express.static(path.join(__dirname, '/public')));

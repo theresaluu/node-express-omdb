@@ -1,0 +1,10 @@
+<h3>Movies Found</h3>
+<p>
+  <% if(movies.length > 0) { %>
+    <% movies.forEach(function(movie){ %>
+      <li><%=movie.Title %></li>
+    <% }); %>
+  <% }else{ %>
+      <p>No results here, buddy</p>
+  <% } %>
+</p>
